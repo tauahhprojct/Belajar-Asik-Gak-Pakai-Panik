@@ -1,0 +1,6 @@
+{
+  "name": "Belajar Asik, Gak Pakai Panik!",
+  "description": "Media Layanan Informasi Bimbingan Konseling (BK) Interaktif untuk Membangun Kebiasaan Belajar Efektif, Manajemen Waktu, dan Konsentrasi Siswa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
