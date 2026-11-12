@@ -59,10 +59,183 @@
   }
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm;
+}
+
 @media print {
-  body {
+  body:has(.lkpd-print-sheet) {
     background: white !important;
+    min-width: 0;
   }
+
+  body:has(.lkpd-print-sheet) #root {
+    display: none !important;
+  }
+
+  body:has(.lkpd-print-sheet) * {
+    visibility: hidden !important;
+  }
+
+  body:has(.lkpd-print-sheet) .lkpd-print-sheet,
+  body:has(.lkpd-print-sheet) .lkpd-print-sheet * {
+    visibility: visible !important;
+  }
+
+  .lkpd-print-sheet {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #17231c !important;
+    background: #fff !important;
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.45;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .lkpd-print-header {
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    text-align: center;
+    border-bottom: 2px solid #155c3b;
+  }
+
+  .lkpd-print-header .lkpd-print-eyebrow {
+    margin: 0 0 4px;
+    color: #426250;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lkpd-print-header h2 {
+    margin: 0 0 4px;
+    color: #155c3b;
+    font-size: 18pt;
+    font-weight: 800;
+  }
+
+  .lkpd-print-header > p:last-child {
+    margin: 0;
+    font-size: 9pt;
+  }
+
+  .lkpd-print-identity {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px 20px;
+    padding: 11px 13px;
+    margin-bottom: 14px;
+    border: 1px solid #aebdb2;
+    border-radius: 6px;
+  }
+
+  .lkpd-print-identity p {
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 7px;
+    margin: 0;
+  }
+
+  .lkpd-print-identity p span {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .lkpd-print-section {
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border: 1px solid #c5d0c8;
+    border-radius: 6px;
+    break-inside: avoid;
+  }
+
+  .lkpd-print-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 7px;
+    margin: 0 0 8px;
+    color: #155c3b;
+    font-size: 11pt;
+    border-bottom: 1px solid #dce5de;
+  }
+
+  .lkpd-print-section h3 span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 21px;
+    height: 21px;
+    color: #fff;
+    background: #287a52;
+    border-radius: 50%;
+    font-size: 9pt;
+  }
+
+  .lkpd-print-section > p {
+    margin: 0;
+  }
+
+  .lkpd-print-section dl {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+  }
+
+  .lkpd-print-section dl > div {
+    display: grid;
+    grid-template-columns: minmax(175px, 0.8fr) 1.5fr;
+    gap: 12px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #b9c5bc;
+    break-inside: avoid;
+  }
+
+  .lkpd-print-section dl > div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .lkpd-print-section dt {
+    font-weight: 700;
+  }
+
+  .lkpd-print-section dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .lkpd-print-signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding-top: 12px;
+    text-align: center;
+    font-size: 9pt;
+    break-inside: avoid;
+  }
+
+  .lkpd-print-signatures p {
+    margin: 0;
+  }
+
+  .lkpd-print-signature-line {
+    min-height: 85px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-weight: 700;
+  }
+
   .no-print {
     display: none !important;
   }

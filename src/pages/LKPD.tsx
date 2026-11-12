@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import {
@@ -677,59 +678,57 @@ export const LKPD: React.FC = () => {
       )}
 
       {/* Printable Sheet View for Teachers / Guru BK (only renders nicely on print or preview) */}
-      <div className="hidden print:block p-8 bg-white text-black space-y-6">
-        <div className="text-center border-b-2 border-black pb-4">
-          <h2 className="text-xl font-bold uppercase">Lembar Kerja Peserta Didik (LKPD)</h2>
-          <h3 className="text-sm font-semibold">Layanan Informasi Bimbingan dan Konseling (BK)</h3>
-          <p className="text-xs">Topik: Membangun Kebiasaan Belajar Efektif, Manajemen Waktu, dan Konsentrasi</p>
-        </div>
+      {createPortal(<div className="lkpd-print-sheet hidden print:block">
+        <header className="lkpd-print-header">
+          <p className="lkpd-print-eyebrow">Layanan Informasi Bimbingan dan Konseling</p>
+          <h2>Lembar Kerja Peserta Didik (LKPD)</h2>
+          <p>Topik: Membangun Kebiasaan Belajar Efektif, Manajemen Waktu, dan Konsentrasi</p>
+        </header>
 
-        <div className="grid grid-cols-2 gap-4 text-xs">
-          <div>
-            <p><strong>Nama:</strong> {profile.name}</p>
-            <p><strong>Kelas:</strong> {profile.grade}</p>
-          </div>
-          <div>
-            <p><strong>Sekolah:</strong> {profile.school}</p>
-            <p><strong>Tanggal Cetak:</strong> {new Date().toLocaleDateString('id-ID')}</p>
-          </div>
-        </div>
+        <section className="lkpd-print-identity" aria-label="Identitas peserta didik">
+          <p><strong>Nama</strong><span>{profile.name || '-'}</span></p>
+          <p><strong>Kelas</strong><span>{profile.grade || '-'}</span></p>
+          <p><strong>Sekolah</strong><span>{profile.school || '-'}</span></p>
+          <p><strong>Tanggal</strong><span>{new Date().toLocaleDateString('id-ID')}</span></p>
+        </section>
 
-        <div className="space-y-4 text-xs">
-          <div className="border p-3 rounded">
-            <h4 className="font-bold mb-1">Aktivitas 1: Hasil Kenali Diri</h4>
-            <p>Jumlah Kebiasaan Positif: {goodHabitsCount} dari {AKTIVITAS_1_QUESTIONS.length} butir kebiasaan.</p>
-          </div>
+        <section className="lkpd-print-section">
+          <h3><span>1</span>Aktivitas 1: Kenali Diri</h3>
+          <p>Jumlah kebiasaan positif: <strong>{goodHabitsCount} dari {AKTIVITAS_1_QUESTIONS.length} butir</strong></p>
+        </section>
 
-          <div className="border p-3 rounded space-y-1">
-            <h4 className="font-bold mb-1">Aktivitas 2: Evaluasi Kebiasaan</h4>
-            <p><strong>Waktu Belajar Nyaman:</strong> {act2Form.preferredTime || '-'}</p>
-            <p><strong>Tempat Belajar Favorit:</strong> {act2Form.preferredPlace || '-'}</p>
-            <p><strong>Kendala Terbesar:</strong> {act2Form.biggestObstacle || '-'}</p>
-            <p><strong>Sikap Hadapi Nilai Rendah:</strong> {act2Form.responseToLowScore || '-'}</p>
-          </div>
+        <section className="lkpd-print-section">
+          <h3><span>2</span>Aktivitas 2: Evaluasi Kebiasaan</h3>
+          <dl>
+            <div><dt>Waktu belajar nyaman</dt><dd>{act2Form.preferredTime || '-'}</dd></div>
+            <div><dt>Tempat belajar favorit</dt><dd>{act2Form.preferredPlace || '-'}</dd></div>
+            <div><dt>Kendala terbesar</dt><dd>{act2Form.biggestObstacle || '-'}</dd></div>
+            <div><dt>Sikap menghadapi nilai rendah</dt><dd>{act2Form.responseToLowScore || '-'}</dd></div>
+          </dl>
+        </section>
 
-          <div className="border p-3 rounded space-y-1">
-            <h4 className="font-bold mb-1">Aktivitas 3: My Study Plan</h4>
-            <p><strong>Kebiasaan yang Ingin Diperbaiki:</strong> {studyPlan.habitToFix || '-'}</p>
-            <p><strong>Target Perubahan:</strong> {studyPlan.changeTarget || '-'}</p>
-            <p><strong>Langkah Cara Mengatasi:</strong> {studyPlan.actionPlan || '-'}</p>
-            <p><strong>Waktu Pelaksanaan:</strong> {studyPlan.executionTime || '-'}</p>
-            <p><strong>Dukungan Dibutuhkan:</strong> {studyPlan.supportNeeded || '-'}</p>
-          </div>
-        </div>
+        <section className="lkpd-print-section">
+          <h3><span>3</span>Aktivitas 3: Rencana Belajar Mandiri</h3>
+          <dl>
+            <div><dt>Kebiasaan yang ingin diperbaiki</dt><dd>{studyPlan.habitToFix || '-'}</dd></div>
+            <div><dt>Target perubahan</dt><dd>{studyPlan.changeTarget || '-'}</dd></div>
+            <div><dt>Langkah mengatasi</dt><dd>{studyPlan.actionPlan || '-'}</dd></div>
+            <div><dt>Waktu pelaksanaan</dt><dd>{studyPlan.executionTime || '-'}</dd></div>
+            <div><dt>Dukungan yang dibutuhkan</dt><dd>{studyPlan.supportNeeded || '-'}</dd></div>
+          </dl>
+        </section>
 
-        <div className="pt-8 flex justify-between text-xs text-center">
+        <footer className="lkpd-print-signatures">
           <div>
             <p>Mengetahui,</p>
-            <p className="mt-12 font-bold">( Guru Pembimbing BK )</p>
+            <p className="lkpd-print-signature-line">Guru Pembimbing BK</p>
           </div>
           <div>
-            <p>Siswa Yang Bersangkutan,</p>
-            <p className="mt-12 font-bold">( {profile.name} )</p>
+            <p>Siswa yang bersangkutan,</p>
+            <p className="lkpd-print-signature-line">{profile.name || 'Nama Siswa'}</p>
           </div>
-        </div>
-      </div>
+        </footer>
+      </div>, document.body)}
 
     </div>
   );
